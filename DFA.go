@@ -56,6 +56,7 @@ func (dfa *DFA) AddState(id string, iFS bool) (*State, error) {
 	}
 	s := State{id: id, isFinalState: iFS}
 	dfa.Qs = append(dfa.Qs, s)
+	dfa.TransitionFuncs[s] = make(map[string]State)
 	if iFS {
 		dfa.FinalStates = append(dfa.FinalStates, s)
 	}
