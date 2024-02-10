@@ -37,13 +37,13 @@ func (dfa *DFA) AddSymbol(s string) error {
 		}
 	}
 	if exist {
-		return errors.New("Ya existe el simbolo.")
+		return errors.New("ya existe el simbolo")
 	}
 	dfa.Alphabet = append(dfa.Alphabet, s)
 	return nil
 }
 
-func (dfa *DFA) AddState(id string, iFS bool) error {
+func (dfa *DFA) AddState(id string, iFS bool) (*State, error) {
 	exist := false
 	for _, val := range dfa.Qs {
 		if val.id == id {
@@ -52,14 +52,14 @@ func (dfa *DFA) AddState(id string, iFS bool) error {
 		}
 	}
 	if exist {
-		return errors.New("Ya existe el estado.")
+		return nil, errors.New("ya existe el estado")
 	}
 	s := State{id: id, isFinalState: iFS}
 	dfa.Qs = append(dfa.Qs, s)
 	if iFS {
 		dfa.FinalStates = append(dfa.FinalStates, s)
 	}
-	return nil
+	return &s, nil
 }
 
 func (dfa *DFA) SetStartState(id string) error {
@@ -72,7 +72,7 @@ func (dfa *DFA) SetStartState(id string) error {
 		}
 	}
 	if !exist {
-		return errors.New("No se encontró el estado.")
+		return errors.New("no se encontro el estado")
 	}
 	return nil
 }
