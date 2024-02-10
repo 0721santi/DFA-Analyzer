@@ -77,13 +77,13 @@ func (dfa *DFA) SetStartState(id string) error {
 	return nil
 }
 
-func (dfa *DFA) AddTransitionFunc(qI, qF State, values []string) string {
+func (dfa *DFA) AddTransitionFunc(qI, qF *State, values []string) string {
 	added := 0
 	for _, value := range values {
 		for _, symbol := range dfa.Alphabet {
 			if value == symbol {
 				added++
-				dfa.TransitionFuncs[qI][value] = qF
+				dfa.TransitionFuncs[*qI][value] = *qF
 				break
 			}
 		}
